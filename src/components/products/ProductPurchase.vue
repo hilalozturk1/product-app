@@ -10,7 +10,7 @@
             <input
               type="text"
               class="form-control"
-              placeholder="Ürün adını giriniz.."
+              placeholder="Enter product name.."
             />
           </div>
           <div class="form-group">
@@ -18,7 +18,7 @@
             <input
               type="text"
               class="form-control"
-              placeholder="Ürün adetini giriniz.."
+              placeholder="Enter product count.."
             />
           </div>
           <div class="form-group">
@@ -26,7 +26,7 @@
             <input
               type="text"
               class="form-control"
-              placeholder="Ürün fiyatı giriniz.."
+              placeholder="Enter product price.."
             />
           </div>
           <div class="form-group">
@@ -34,7 +34,7 @@
             <textarea
               cols="30"
               rows="5"
-              placeholder="Ürüne ait bir açıklama giriniz..."
+              placeholder="Enter product description..."
               class="form-control"
             ></textarea>
           </div>
