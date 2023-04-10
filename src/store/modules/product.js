@@ -27,6 +27,8 @@ const actions = {
         payload
       )
       .then(response => {
+        payload.id = response.body.name;
+        commit("updateProductList", payload);
         console.log(response);
       });
   },
