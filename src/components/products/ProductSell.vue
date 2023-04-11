@@ -1,5 +1,11 @@
 <template
   ><div class="container">
+    <div class="loading" :style="isLoading">
+      <div class="lds-ripple">
+        <div></div>
+        <div></div>
+      </div>
+    </div>
     <div class="row">
       <div class="col-6 offset-3 pt-3 card mt-5 shadow">
         <div class="card-body">
@@ -52,7 +58,9 @@
             />
           </div>
           <hr />
-          <button class="btn btn-primary" @click="save">Save</button>
+          <button class="btn btn-primary" @click="save" :disabled="disabled">
+            Save
+          </button>
         </div>
       </div>
     </div>
@@ -65,20 +73,57 @@ export default {
     return {
       selectedProduct: "",
       product: null,
-      product_count: null
+      product_count: null,
+      saveButtonClicked: false
     };
   },
-  computed: mapGetters(["getProducts"]),
+  computed: {
+    ...mapGetters(["getProducts"]),
+    isLoading() {
+      if (this.saveClicked) {
+        return {
+          display: "block"
+        };
+      } else {
+        return {
+          display: "none"
+        };
+      }
+    },
+    disabled() {
+      return (this.product_count > 0) & (this.selectedProduct !== null)
+        ? false
+        : true;
+    }
+  },
   methods: {
     productSelected() {
       this.product = this.$store.getters.getProduct(this.selectedProduct)[0];
     },
     save() {
+      this.saveButtonClicked = true;
       let product = {
         key: this.selectedProduct,
         count: this.product_count
       };
       this.$store.dispatch("sellProduct", product);
+    }
+  },
+  beforeRouteLeave(to, from, next) {
+    let product = this.product;
+    if (
+      (this.selectedProduct !== null || this.product_count > 0) &&
+      !this.saveButtonClicked
+    ) {
+      if (
+        confirm("There are any unsaved changes. would you like to quit anyway?")
+      ) {
+        next();
+      } else {
+        next(false);
+      }
+    } else {
+      next();
     }
   }
 };
