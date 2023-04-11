@@ -10,9 +10,10 @@ const getters = {
     return state.products;
   },
   getProduct(state) {
-    return key => state.products.filter(element => {
-      return element.key === key
-    })
+    return key =>
+      state.products.filter(element => {
+        return element.key === key;
+      });
   }
 };
 
@@ -60,8 +61,35 @@ const actions = {
         console.log(response);
       });
   },
-  sellProduct({ commit }, payload) {
-    //vue resource
+  sellProduct({ commit, state, dispatch }, payload) {
+    console.log("payload", payload);
+    let product = state.products.filter(element => {
+      console.log("element", element);
+      return element.key == payload.key;
+    });
+
+    if (product) {
+      let totalCount = product[0].count - payload.count;
+
+      Vue.http
+        .patch(
+          "https://product-operations-74152-default-rtdb.firebaseio.com/products/" +
+            payload.key +
+            ".json",
+          { count: totalCount }
+        )
+        .then(response => {
+          product[0].count = totalCount;
+          let tradeResult = {
+            purchase: 0,
+            sale: product[0].price,
+            count: payload.count
+          };
+
+          dispatch("setTradeResult", tradeResult);
+          router.replace("/");
+        });
+    }
   }
 };
 

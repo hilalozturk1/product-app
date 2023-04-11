@@ -48,10 +48,11 @@
               type="text"
               class="form-control"
               placeholder="Enter product count"
+              v-model="product_count"
             />
           </div>
           <hr />
-          <button class="btn btn-primary">Save</button>
+          <button class="btn btn-primary" @click="save">Save</button>
         </div>
       </div>
     </div>
@@ -63,13 +64,21 @@ export default {
   data() {
     return {
       selectedProduct: "",
-      product: null
+      product: null,
+      product_count: null
     };
   },
   computed: mapGetters(["getProducts"]),
   methods: {
     productSelected() {
       this.product = this.$store.getters.getProduct(this.selectedProduct)[0];
+    },
+    save() {
+      let product = {
+        key: this.selectedProduct,
+        count: this.product_count
+      };
+      this.$store.dispatch("sellProduct", product);
     }
   }
 };
