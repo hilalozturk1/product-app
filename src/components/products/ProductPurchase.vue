@@ -64,12 +64,14 @@ export default {
         title: "",
         count: null,
         price: null,
-        description: ""
+        description: "",
+        saveClicked: false
       }
     };
   },
   methods: {
     saveProduct() {
+      this.saveClicked = true
       this.$store.dispatch("saveProduct", this.product);
     }
   },
@@ -87,10 +89,11 @@ export default {
   beforeRouteLeave(to, from, next) {
     let product = this.product;
     if (
-      product.title ||
-      product.count ||
-      product.description ||
-      product.price
+      (product.title ||
+        product.count ||
+        product.description ||
+        product.price) &&
+      !this.saveClicked
     ) {
       if (
         confirm("There are any unsaved changes. would you like to quit anyway?")
