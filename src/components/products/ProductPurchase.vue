@@ -56,7 +56,7 @@
   </div>
 </template>
 <script>
-import { computed, watch } from "vue";
+import { computed, nextTick, watch } from "vue";
 export default {
   data() {
     return {
@@ -82,6 +82,25 @@ export default {
         product.price
         ? false
         : true;
+    }
+  },
+  beforeRouteLeave(to, from, next) {
+    let product = this.product;
+    if (
+      product.title ||
+      product.count ||
+      product.description ||
+      product.price
+    ) {
+      if (
+        confirm("There are any unsaved changes. would you like to quit anyway?")
+      ) {
+        next();
+      } else {
+        next(false);
+      }
+    } else {
+      next();
     }
   }
 };
