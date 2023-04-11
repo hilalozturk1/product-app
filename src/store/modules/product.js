@@ -1,4 +1,6 @@
 import Vue from "vue";
+import { router } from "../../router";
+
 const state = {
   products: []
 };
@@ -19,7 +21,7 @@ const mutations = {
 const actions = {
   //async
   initApp({ commit }) {},
-  saveProduct({dispatch ,commit }, payload) {
+  saveProduct({ dispatch, commit }, payload) {
     //vue resource
     Vue.http
       .post(
@@ -35,9 +37,10 @@ const actions = {
           purchase: payload.price,
           sale: 0,
           count: payload.count
-        }
-        
-        dispatch("setTradeResult", tradeResult) 
+        };
+
+        dispatch("setTradeResult", tradeResult);
+        router.replace("/");
         console.log(response);
       });
   },
