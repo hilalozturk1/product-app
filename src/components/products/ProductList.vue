@@ -14,26 +14,37 @@
               <th>Description</th>
             </thead>
             <tbody>
-              <tr>
-                <td class="align-middle text-center"><span class="badge badge-info"> E564fghdE563df </span></td>
-                <td class="align-middle text-center">Test Product</td>
-                <td class="align-middle text-center">1</td>
-                <td style="width: 120px;">10,000</td>
-                <td class="align-middle">Test description</td>
+              <tr v-for="product in getProducts" :key="product">
+                <td class="align-middle text-center">
+                  <span class="badge badge-info"> {{ product.id }} </span>
+                </td>
+                <td class="align-middle text-center">{{ product.title }}</td>
+                <td class="align-middle text-center">{{ product.count }}</td>
+                <td style="width: 120px;">{{ product.price }}</td>
+                <td class="align-middle">{{ product.description }}</td>
               </tr>
             </tbody>
           </table>
           <div class="alert alert-warning">
             <strong>There is no product so far</strong>
             <br />
-            <small>You can go to the Product Operations Menu to add any registration</small>
+            <small
+              >You can go to the Product Operations Menu to add any
+              registration</small
+            >
           </div>
         </div>
       </div>
     </div>
-  </div></template
->
+  </div>
+</template>
 <script>
-export default {};
+import { mapGetters } from "vuex";
+
+export default {
+  computed: {
+    ...mapGetters(["getProducts"])
+  }
+};
 </script>
 <style></style>
