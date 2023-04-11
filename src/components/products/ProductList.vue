@@ -14,7 +14,7 @@
               <th>Description</th>
             </thead>
             <tbody>
-              <tr v-for="product in getProducts" :key="product">
+              <tr v-for="product in getProducts" :key="product.id">
                 <td class="align-middle text-center">
                   <span class="badge badge-info"> {{ product.id }} </span>
                 </td>
@@ -25,7 +25,7 @@
               </tr>
             </tbody>
           </table>
-          <div class="alert alert-warning">
+          <div class="alert alert-warning" v-if="!getProducts">
             <strong>There is no product so far</strong>
             <br />
             <small

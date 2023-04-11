@@ -20,7 +20,19 @@ const mutations = {
 
 const actions = {
   //async
-  initApp({ commit }) {},
+  initApp({ commit }) {
+    Vue.http
+      .get(
+        "https://product-operations-74152-default-rtdb.firebaseio.com/products.json"
+      )
+      .then(response => {
+        let data = response.body;
+        for (let key in data) {
+          data[key].key = key;
+          commit("updateProductList", data[key]);
+        }
+      });
+  },
   saveProduct({ dispatch, commit }, payload) {
     //vue resource
     Vue.http
