@@ -1,7 +1,7 @@
 <template>
   <div>
     <app-header />
-    <router-view/>
+    <router-view />
     <app-footer />
   </div>
 </template>
@@ -11,8 +11,11 @@ import Footer from "./components/shared/Footer.vue";
 export default {
   components: {
     appHeader: Header,
-    appFooter: Footer,
+    appFooter: Footer
   },
+  created() {
+    this.$store.dispatch("getTradeResult");
+  }
 };
 </script>
 <style></style>
