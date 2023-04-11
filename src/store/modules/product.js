@@ -9,7 +9,11 @@ const getters = {
   getProducts(state) {
     return state.products;
   },
-  getProduct(state) {}
+  getProduct(state) {
+    return key => state.products.filter(element => {
+      return element.key === key
+    })
+  }
 };
 
 const mutations = {
