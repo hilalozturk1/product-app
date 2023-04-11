@@ -71,10 +71,10 @@ import { mapGetters } from "vuex";
 export default {
   data() {
     return {
-      selectedProduct: "",
+      selectedProduct: null,
       product: null,
       product_count: null,
-      saveButtonClicked: false
+      saveClicked: false
     };
   },
   computed: {
@@ -101,7 +101,7 @@ export default {
       this.product = this.$store.getters.getProduct(this.selectedProduct)[0];
     },
     save() {
-      this.saveButtonClicked = true;
+      this.saveClicked = true;
       let product = {
         key: this.selectedProduct,
         count: this.product_count
@@ -110,10 +110,9 @@ export default {
     }
   },
   beforeRouteLeave(to, from, next) {
-    let product = this.product;
     if (
       (this.selectedProduct !== null || this.product_count > 0) &&
-      !this.saveButtonClicked
+      !this.saveClicked
     ) {
       if (
         confirm("There are any unsaved changes. would you like to quit anyway?")

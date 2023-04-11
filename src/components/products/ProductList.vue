@@ -5,7 +5,7 @@
         <div class="card-body">
           <h3>Product List</h3>
           <hr />
-          <table class="table table-hover table-striped table-bordered">
+          <table class="table table-hover table-striped table-bordered" v-if="getProducts.length">
             <thead>
               <th>id</th>
               <th>Product Name</th>
@@ -14,9 +14,9 @@
               <th>Description</th>
             </thead>
             <tbody>
-              <tr v-for="product in getProducts" :key="product.id">
+              <tr v-for="product in getProducts" :key="product.key">
                 <td class="align-middle text-center">
-                  <span class="badge badge-info"> {{ product.id }} </span>
+                  <span class="badge badge-info"> {{ product.key }} </span>
                 </td>
                 <td class="align-middle text-center">{{ product.title }}</td>
                 <td
@@ -30,7 +30,7 @@
               </tr>
             </tbody>
           </table>
-          <div class="alert alert-warning" v-if="!getProducts">
+          <div class="alert alert-warning" v-else>
             <strong>There is no product so far</strong>
             <br />
             <small

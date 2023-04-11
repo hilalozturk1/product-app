@@ -46,7 +46,7 @@ const actions = {
         payload
       )
       .then(response => {
-        payload.id = response.body.name;
+        payload.key = response.body.name;
 
         commit("updateProductList", payload);
 
@@ -55,19 +55,18 @@ const actions = {
           sale: 0,
           count: payload.count
         };
-
+        console.log('tradeResult', tradeResult)
         dispatch("setTradeResult", tradeResult);
         router.replace("/");
-        console.log(response);
+
       });
   },
   sellProduct({ commit, state, dispatch }, payload) {
-    console.log("payload", payload);
+   
     let product = state.products.filter(element => {
-      console.log("element", element);
       return element.key == payload.key;
     });
-
+    console.log("product", product)
     if (product) {
       let totalCount = product[0].count - payload.count;
 
@@ -85,7 +84,7 @@ const actions = {
             sale: product[0].price,
             count: payload.count
           };
-
+          console.log('tradeResult', tradeResult)
           dispatch("setTradeResult", tradeResult);
           router.replace("/");
         });
