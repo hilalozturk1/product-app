@@ -12,9 +12,13 @@
               v-model="selectedProduct"
               @change="productSelected()"
             >
-              <option :value="product.id" v-for="product in getProducts">{{
-                product.title
-              }}</option>
+              <option selected disabled>Please select an option...</option>
+              <option
+                :value="product.key"
+                v-for="product in getProducts"
+                :disabled="product.count == 0"
+                >{{ product.title }}</option
+              >
             </select>
           </div>
           <transition name="fade" mode="out-in">
