@@ -19,7 +19,7 @@ const mutations = {
 const actions = {
   //async
   initApp({ commit }) {},
-  saveProduct({ commit }, payload) {
+  saveProduct({dispatch ,commit }, payload) {
     //vue resource
     Vue.http
       .post(
@@ -28,7 +28,16 @@ const actions = {
       )
       .then(response => {
         payload.id = response.body.name;
+
         commit("updateProductList", payload);
+
+        let tradeResult = {
+          purchase: payload.price,
+          sale: 0,
+          count: payload.count
+        }
+        
+        dispatch("setTradeResult", tradeResult) 
         console.log(response);
       });
   },
