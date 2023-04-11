@@ -43,13 +43,20 @@
             ></textarea>
           </div>
           <hr />
-          <button class="btn btn-primary" @click="saveProduct">Save</button>
+          <button
+            class="btn btn-primary"
+            @click="saveProduct"
+            :disabled="disabled"
+          >
+            Save
+          </button>
         </div>
       </div>
     </div>
   </div>
 </template>
 <script>
+import { computed, watch } from "vue";
 export default {
   data() {
     return {
@@ -64,6 +71,17 @@ export default {
   methods: {
     saveProduct() {
       this.$store.dispatch("saveProduct", this.product);
+    }
+  },
+  computed: {
+    disabled() {
+      let product = this.product;
+      return product.title &&
+        product.count &&
+        product.description &&
+        product.price
+        ? false
+        : true;
     }
   }
 };
