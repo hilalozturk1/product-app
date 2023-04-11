@@ -8,15 +8,21 @@
     >
     <span class="navbar-text navbar-nav my-2 my-lg-0 mr-3">
       <strong>purchase amount : </strong>
-      <span class="badge badge-danger">{{ getTradeResult.purchase }}</span>
+      <span class="badge badge-danger">{{
+        getTradeResult.purchase | currency
+      }}</span>
     </span>
     <span class="navbar-text navbar-nav my-2 my-lg-0 mr-3">
       <strong>sales amount : </strong>
-      <span class="badge badge-success">{{ getTradeResult.sale }}</span>
+      <span class="badge badge-success">{{
+        getTradeResult.sale | currency
+      }}</span>
     </span>
     <span class="navbar-text navbar-nav my-2 my-lg-0">
       <strong>Balance : </strong>
-      <span class="badge badge-primary">{{ getTradeResult.balance }}</span>
+      <span class="badge badge-primary">{{
+        getTradeResult.balance | currency
+      }}</span>
     </span>
   </nav>
 </template>
