@@ -7,12 +7,10 @@
           <hr />
           <div class="form-group">
             <label>Product Name</label>
-            <select class="form-control">
-              <option value="1">Product 1</option>
-              <option value="1">Product 2</option>
-              <option value="1">Product 3</option>
-              <option value="1">Product 4</option>
-              <option value="1">Product 5</option>
+            <select class="form-control" v-model="selectedProduct">
+              <option :value="product.id" v-for="product in getProducts">{{
+                product.title
+              }}</option>
             </select>
           </div>
           <div class="card mb-2 border border-danger">
@@ -49,7 +47,15 @@
   </div>
 </template>
 <script>
-export default {};
+import { mapGetters } from "vuex";
+export default {
+  data(){
+    return {
+      selectedProduct: ""
+    }
+  },
+  computed: mapGetters(["getProducts"])
+};
 </script>
 <style scoped>
 .border-danger {
