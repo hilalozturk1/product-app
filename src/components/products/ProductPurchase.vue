@@ -1,5 +1,11 @@
 <template>
   <div class="container">
+    <div class="loading" :style="isLoading">
+      <div class="lds-ripple">
+        <div></div>
+        <div></div>
+      </div>
+    </div>
     <div class="row">
       <div class="col-6 offset-3 pt-3 card mt-5 shadow">
         <div class="card-body">
@@ -64,14 +70,14 @@ export default {
         title: "",
         count: null,
         price: null,
-        description: "",
-        saveClicked: false
-      }
+        description: ""
+      },
+      saveClicked: false
     };
   },
   methods: {
     saveProduct() {
-      this.saveClicked = true
+      this.saveClicked = true;
       this.$store.dispatch("saveProduct", this.product);
     }
   },
@@ -84,6 +90,17 @@ export default {
         product.price
         ? false
         : true;
+    },
+    isLoading() {
+      if (this.saveClicked) {
+        return {
+          display: "block"
+        };
+      } else {
+        return {
+          display: "none"
+        };
+      }
     }
   },
   beforeRouteLeave(to, from, next) {
